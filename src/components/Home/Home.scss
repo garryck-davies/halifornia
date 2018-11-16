@@ -1,0 +1,43 @@
+.selection {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+.dude {
+    // top: 0;
+    display: block;
+    background-image: url("https://s3.us-east-2.amazonaws.com/haliforniaapparelwebsite/home_desktop_men.jpeg");
+    background-repeat: no-repeat;
+    background-size: 100% fill;
+    background-position: left;
+    width: 100%;
+    filter: gray;
+    -webkit-filter: grayscale(1); 
+    -webkit-transition: all .8s ease-in-out;  
+    transition: 2s ease;
+    margin-bottom: 5px;
+}
+
+.dude:hover {
+    filter: none;
+}
+
+.girl {
+    display: block;
+    // justify-content: right;
+    // align-items:flex-start;
+    background-image: url("https://s3.us-east-2.amazonaws.com/haliforniaapparelwebsite/home_desktop_women.jpeg");
+    background-repeat: no-repeat;
+    background-size: 100% fill;
+    background-position: center;
+    width: 100%;
+    filter: gray;
+    -webkit-filter: grayscale(1); 
+    -webkit-transition: all .8s ease-in-out;  
+    transition: 2s ease;
+ }
+
+.girl:hover {
+    filter: none;
+} 
