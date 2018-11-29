@@ -11,7 +11,7 @@ export default class Womens extends Component {
         
 
         return(
-            <div>
+            <div className="womens-container box-container">
                 Womens
             </div>
         )

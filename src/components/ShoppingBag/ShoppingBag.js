@@ -11,7 +11,7 @@ export default class ShoppingBag extends Component {
         
 
         return(
-            <div>
+            <div className="bag-container box-container">
                 Shopping Bag
             </div>
         )

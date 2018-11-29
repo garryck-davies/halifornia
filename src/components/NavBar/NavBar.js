@@ -3,9 +3,11 @@ import {Link} from 'react-router-dom';
 
 import './NavBar.scss';
 import Logo from '../../components/haliforniaapparel.com-wide.jpg';
-export default function NavBar () {
+import Login from '../Login/Login';
 
+export default function NavBar() {
 
+    
     return(
         <div className="nav-container">
             <div className="nav-links">
@@ -17,7 +19,7 @@ export default function NavBar () {
                 <Link to="/mens">Men's</Link>
                 <Link to="/womens">Women's</Link>
                 <Link to="/bag">Shopping Bag</Link>
-                <Link to="/">Login</Link>
+                <Login />
                 </div>
             </div>            
         </div>
