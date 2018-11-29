@@ -5,6 +5,7 @@ const massive = require('massive');
 const bcrypt = require('bcryptjs');
 const controller = require('./controller');
 
+
 //initialize express app
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }))
+app.use(express.static(`${__dirname}/../build`));
 
 //endpoints
 app.get('/api/products')
@@ -32,6 +34,9 @@ app.post('/api/create_account')
 app.post('/api/shopping_bag')
 app.put('/api/quantity')
 app.delete('/api/shooping_bag_delete')
+
+
+
 
 
 //listen on port
