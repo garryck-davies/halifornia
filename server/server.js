@@ -21,7 +21,7 @@ app.use(session({
     secret: SECRET,
     resave: false,
     saveUninitialized: false
-}))
+}));
 app.use(express.static(`${__dirname}/../build`));
 
 //endpoints
