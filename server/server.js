@@ -25,7 +25,7 @@ app.use(session({
 app.use(express.static(`${__dirname}/../build`));
 
 //endpoints
-app.get('/api/products', controller.getProducts)
+// app.get('/api/products', controller.getProducts)
 app.get('/api/user')
 app.get('/api/logout')
 app.post('/api/login', controller.login)
