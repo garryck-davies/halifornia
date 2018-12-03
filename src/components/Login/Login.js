@@ -43,12 +43,6 @@ export default class Login extends Component {
             password: this.state.password
         })
         console.log(res)
-        if (res.data.message === 'logged in') {
-            this.props.history.push('/')
-        } else {
-            alert(res.data.message)
-        }
-        console.log('got here')
     }
 
     async register() {
@@ -60,11 +54,6 @@ export default class Login extends Component {
             password: this.state.password
         })
         console.log(res)
-        if (res.data.message === 'logged in') {
-            this.props.history.push('/')
-        } else {
-            alert(res.data.message)
-        }
     }
 
 

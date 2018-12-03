@@ -13,7 +13,9 @@ const app = express();
 let { CONNECTION_PORT, CONNECTION_STRING, SECRET } = process.env;
 
 //connect to DB
-massive(CONNECTION_STRING).then(db => app.set('db', db));
+massive(CONNECTION_STRING).then(db => {
+    console.log('DB CONNECTED')
+    app.set('db', db)});
 
 //middleware
 app.use(express.json());
@@ -25,15 +27,15 @@ app.use(session({
 app.use(express.static(`${__dirname}/../build`));
 
 //endpoints
-// app.get('/api/products', controller.getProducts)
+app.get('/api/products', controller.getAllMensProducts)
 app.get('/api/user')
 app.get('/api/logout')
 app.post('/api/login', controller.login)
 app.post('/api/register', controller.register)
-app.post('/api/create_account')
-app.post('/api/shopping_bag')
+app.post('/api/addToBag', controller.addToBag)
+app.post('/api/shopping_bag', controller.shopping_bag)
 app.put('/api/quantity')
-app.delete('/api/shooping_bag_delete')
+app.delete('/api/shopping_bag_delete')
 
 
 
