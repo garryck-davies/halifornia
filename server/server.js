@@ -30,12 +30,13 @@ app.use(express.static(`${__dirname}/../build`));
 app.get('/api/products', controller.getAllMensProducts)
 app.get('/api/user')
 app.get('/api/logout')
+app.post('/api/products', controller.getAllWomensProducts)
 app.post('/api/login', controller.login)
 app.post('/api/register', controller.register)
 app.post('/api/addToBag', controller.addToBag)
 app.post('/api/shopping_bag', controller.shopping_bag)
 app.put('/api/quantity')
-app.delete('/api/shopping_bag_delete')
+app.delete('/api/shopping_bag_delete/:product_id', controller.shopping_bag_delete)
 
 
 

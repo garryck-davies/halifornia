@@ -59,6 +59,18 @@ module.exports = {
         })
     },
 
+    getAllWomensProducts(req, res) {
+        let db = req.app.get('db');
+        console.log('it works')
+        db.find_womens().then(products => {
+            res.status(200).send(products)
+            console.log('this works as well')
+        }).catch(err => {
+            console.log(err);
+            res.status(500).send(err)
+        })
+    },
+
     shopping_bag(req, res) {
         let db = req.app.get('db');
         console.log('bag retrieved')
@@ -78,6 +90,20 @@ module.exports = {
         db.add_to_bag([req.body.product_id, req.session.user.user_id, req.body.quantity]).then(products => {
             res.status(200).send(products)
             console.log('added it')
+        }).catch(err => {
+            console.log(err);
+            res.status(500).send(err)
+        })
+    },
+
+    shopping_bag_delete(req, res) {
+        let db = req.app.get('db');
+        console.log(req.params)
+        db.delete_item([req.params.product_id, req.session.user.user_id]).then(products => {
+            console.log('products')
+            console.log(products)
+            res.status(200).send(products)
+            console.log('deleted')
         }).catch(err => {
             console.log(err);
             res.status(500).send(err)
