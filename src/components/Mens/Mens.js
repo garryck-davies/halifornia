@@ -6,49 +6,43 @@ import Button from '@material-ui/core/Button';
 
 export default class Mens extends Component {
     constructor(props) {
-        super(props);
-
-
-        this.state = {
-            products: []
-        }
+      super(props);
+  
+      this.state = {
+        products: []
+      }
     }
-
-   async componentDidMount(){
-        let res = await axios.get('/api/products')
-        console.log(res.data)
-        this.setState({products: res.data})
-        console.log(this.state.products)    
+  
+  
+    async componentDidMount() {
+     let res = await axios.get('/api/mens')
+      console.log(res.data)
+      this.setState({products: res.data})
+      console.log(this.state.products)
     }
-
-    async handleAddToBag(product_id) {
-        let res = await axios.post('/api/addToBag', {
-            product_id
-        })
-        console.log(res.data)
+  
+    addToBag(product_id) {
+      axios.post('/api/addToBag', {
+        product_id
+      })
     }
-    
-
     render() {
-    
-
-        return(
-            <div className="mens-container box-container">
-              <div className="mens-all-item-component">
-                {this.state.products.map((product, i) => {
-                    console.log(product)
-                    let {product_id} = product
-                    return (
-                        <div className='item-component' key={i}>
-                            <img className="mens-product-image" src={product.item_img} alt="img" />
-                            <p className="item-name" >{product.item_name}</p>
-                            <p>{product.price}</p>
-                            <Button onClick={() => this.handleAddToBag(product_id)} style={{backgroundColor: "black", color: "white"}}>Add To Bag</Button>
-                        </div>
-                    )
-                })}
-              </div>
-            </div>
-        )
+      return (
+        <div className="product-container">
+          <div className="product-list">
+            {this.state.products.map((product, i) => {
+              let { product_id } = product
+              return (
+                <div className="individual-products" key={i}>
+                  <img className="product-img" src={product.item_img} alt='img' />
+                  <p id="product-name">{product.item_name}</p>
+                  <p id="price">{product.price}</p>
+                  <Button id="add" onClick={() => this.addToBag(product_id)} style={{backgroundColor: "black", color: "white"}}>Add To Bag</Button>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )
     }
-}
+  }

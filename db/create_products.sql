@@ -4,5 +4,6 @@ item_name text,
 item_img text,
 item_info text,
 price money,
-gender text
+gender text,
+quantity integer
 )

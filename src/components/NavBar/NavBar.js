@@ -5,6 +5,7 @@ import './NavBar.scss';
 import Logo from '../../components/haliforniaapparel.com-wide.jpg';
 import Login from '../Login/Login';
 
+
 export default function NavBar() {
 
     
@@ -20,6 +21,7 @@ export default function NavBar() {
                 <Link to="/womens">Women's</Link>
                 <Link to="/bag">Shopping Bag</Link>
                 <Login />
+                
                 </div>
             </div>            
         </div>

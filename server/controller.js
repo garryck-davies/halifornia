@@ -1,4 +1,6 @@
+require('dotenv').config();
 const bcrypt = require('bcryptjs');
+const stripe = require('stripe')(process.env.STRIPE_SECRET)
 
 
 module.exports = {
@@ -47,10 +49,10 @@ module.exports = {
             }
     },
 
-    getAllMensProducts(req, res) {
+    mensProducts(req, res) {
         let db = req.app.get('db');
         console.log('it works')
-        db.find_mens().then(products => {
+        db.select_mens().then(products => {
             res.status(200).send(products)
             console.log('this works 2')
         }).catch(err => {
@@ -59,10 +61,10 @@ module.exports = {
         })
     },
 
-    getAllWomensProducts(req, res) {
+    womensProducts(req, res) {
         let db = req.app.get('db');
         console.log('it works')
-        db.find_womens().then(products => {
+        db.select_womens().then(products => {
             res.status(200).send(products)
             console.log('this works as well')
         }).catch(err => {
@@ -71,10 +73,11 @@ module.exports = {
         })
     },
 
-    shopping_bag(req, res) {
+    bag(req, res) {
         let db = req.app.get('db');
         console.log('bag retrieved')
-        db.get_bag([req.session.user.user_id]).then(products => {
+        db.select_bag([req.session.user.user_id]).then(products => {
+            console.log(products)
             res.status(200).send(products)
             console.log('got the bag')
         }).catch(err => {
@@ -87,7 +90,7 @@ module.exports = {
         let db = req.app.get('db');
         console.log('its working so far')
         console.log(req.session.user)
-        db.add_to_bag([req.body.product_id, req.session.user.user_id, req.body.quantity]).then(products => {
+        db.insert_bag([req.body.product_id, req.session.user.user_id]).then(products => {
             res.status(200).send(products)
             console.log('added it')
         }).catch(err => {
@@ -96,10 +99,10 @@ module.exports = {
         })
     },
 
-    shopping_bag_delete(req, res) {
+    removeProduct(req, res) {
         let db = req.app.get('db');
         console.log(req.params)
-        db.delete_item([req.params.product_id, req.session.user.user_id]).then(products => {
+        db.delete_product([req.params.product_id, req.session.user.user_id]).then(products => {
             console.log('products')
             console.log(products)
             res.status(200).send(products)
@@ -108,5 +111,36 @@ module.exports = {
             console.log(err);
             res.status(500).send(err)
         })
+    },
+
+    editQuantity(req, res) {
+        let db = req.app.get('db');
+        console.log(req.body.quantity)
+        db.edit_quantity([req.params.quantity, req.body.product_id, req.session.user.user_id]).then(quantity => {
+            res.status(200).send(quantity)
+        }).catch(err => {
+            res.status(500).send(err)
+        })
+    },
+    
+    handlePayment: (req, res) => {
+        const {amount, token:{id}} = req.body
+        stripe.charges.create(
+            {
+                amount: amount,
+                currency: "usd",
+                source: id,
+                description: "Test charge from me"
+            },
+            (err, charge) => {
+                if(err) {
+                    console.log(err)
+                    return res.status(500).send(err)
+                } else {
+                    console.log(charge)
+                    return res.status(200).send(charge)
+                }
+            }
+        )
     }
 }

@@ -3,14 +3,15 @@ const express = require('express');
 const session = require('express-session');
 const massive = require('massive');
 const bcrypt = require('bcryptjs');
-const controller = require('./controller');
+const ctrl = require('./controller');
+const stripe = require('stripe');
 
 
 //initialize express app
 const app = express();
 
 //destructure from .env
-let { CONNECTION_PORT, CONNECTION_STRING, SECRET } = process.env;
+let { CONNECTION_PORT, CONNECTION_STRING, SECRET, STRIPE_KEY } = process.env;
 
 //connect to DB
 massive(CONNECTION_STRING).then(db => {
@@ -27,16 +28,15 @@ app.use(session({
 app.use(express.static(`${__dirname}/../build`));
 
 //endpoints
-app.get('/api/products', controller.getAllMensProducts)
-app.get('/api/user')
-app.get('/api/logout')
-app.post('/api/products', controller.getAllWomensProducts)
-app.post('/api/login', controller.login)
-app.post('/api/register', controller.register)
-app.post('/api/addToBag', controller.addToBag)
-app.post('/api/shopping_bag', controller.shopping_bag)
-app.put('/api/quantity')
-app.delete('/api/shopping_bag_delete/:product_id', controller.shopping_bag_delete)
+app.get('/api/mens', ctrl.mensProducts)
+app.get('/api/womens', ctrl.womensProducts)
+app.post('/api/login', ctrl.login)
+app.post('/api/register', ctrl.register)
+app.post('/api/bag', ctrl.bag)
+app.post('/api/addToBag', ctrl.addToBag)
+app.post('/api/checkout',  ctrl.handlePayment)
+app.put('/api/editQuantity/:quantity', ctrl.editQuantity)
+app.delete('/api/removeProduct/:product_id', ctrl.removeProduct)
 
 
 
@@ -46,3 +46,4 @@ app.delete('/api/shopping_bag_delete/:product_id', controller.shopping_bag_delet
 app.listen(CONNECTION_PORT, () => {
     console.log(`Listening on port: ${CONNECTION_PORT}`)
 })
+
