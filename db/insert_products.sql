@@ -1,4 +1,4 @@
-insert into products (item_name, item_img, price, gender)
+insert into products (item_name, item_img, price, gender, quantity)
 values
 ('BROOKLYN DAD CAP WHITE', 'https://cdn.shopify.com/s/files/1/1375/4645/products/hats.018_grande.jpeg?v=1541979334', 69, 'Men', 1),
 ('DRESDEN LARGE LOGO TEE WHITE', 'https://cdn.shopify.com/s/files/1/1375/4645/products/no_tags_photos.002_grande.jpeg?v=1541873520', 99, 'Men', 1),

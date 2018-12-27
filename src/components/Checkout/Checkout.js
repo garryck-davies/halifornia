@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import axios from 'axios';
 
+import '../../icons8-shopping-bag-filled-100.png';
+
 export default class Checkout extends Component {
     constructor(props) {
         super(props);
@@ -24,7 +26,7 @@ export default class Checkout extends Component {
     <StripeCheckout
         name="Purchase Items"
         description="Making It Rain"
-        image="https://s3.us-east-2.amazonaws.com/haliforniaapparelwebsite/supermarket-bag.svg"
+        image=""
         token= {this.onToken}
         stripeKey={process.env.STRIPE_KEY}
         amount={this.state.amount}
